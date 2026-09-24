@@ -1,1 +1,1 @@
-# QuanLiSinhVien-CSharp
+# QuanLySinhVien-Sharp
