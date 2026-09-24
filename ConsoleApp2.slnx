@@ -1,3 +1,132 @@
-<Solution>
-  <Project Path="ConsoleApp2/ConsoleApp2.csproj" Id="e83f2402-66e8-4975-b5c0-b2dbbf6b2fab" />
-</Solution>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace QuanLySinhVien
+{
+    class Program
+    {
+        // 1. Ham nhap so luong sinh vien n (n > 0)
+        static int NhapSoLuong()
+        {
+            int n = 0;
+            while (n <= 0)
+            {
+                Console.Write("Nhap so luong sinh vien (n > 0): ");
+                n = int.Parse(Console.ReadLine());
+                if (n <= 0)
+                {
+                    Console.WriteLine("So luong phai lon hon 0. Vui long nhap lai!");
+                }
+            }
+            return n;
+        }
+
+        // 2. Ham nhap thong tin ho ten va diem
+        static void NhapThongTin(string[] hoTen, double[] diem, int n)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("\nNhap sinh vien thu " + (i + 1) + ":");
+                Console.Write("- Ho va ten: ");
+                hoTen[i] = Console.ReadLine();
+
+                Console.Write("- Diem so: ");
+                diem[i] = double.Parse(Console.ReadLine());
+            }
+        }
+
+        // 6. Ham in bang danh sach sinh vien
+        static void InDanhSach(string[] hoTen, double[] diem, int n)
+        {
+            Console.WriteLine("\n--- BANG DANH SACH SINH VIEN ---");
+            Console.WriteLine("{0,-5} {1,-25} {2,-10}", "STT", "Ho va Ten", "Diem");
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("{0,-5} {1,-25} {2,-10}", (i + 1), hoTen[i], diem[i]);
+            }
+        }
+
+        // 3. Ham tinh diem trung binh
+        static double TinhDiemTrungBinh(double[] diem, int n)
+        {
+            double tong = 0;
+            for (int i = 0; i < n; i++)
+            {
+                tong = tong + diem[i];
+            }
+            return tong / n;
+        }
+
+        // 4. Ham tim va in ra sinh vien co diem cao nhat
+        static void TimDiemCaoNhat(string[] hoTen, double[] diem, int n)
+        {
+            double max = diem[0];
+            for (int i = 1; i < n; i++)
+            {
+                if (diem[i] > max)
+                {
+                    max = diem[i];
+                }
+            }
+
+            Console.WriteLine("- Diem cao nhat lop: " + max);
+            Console.Write("- Sinh vien co diem cao nhat: ");
+            for (int i = 0; i < n; i++)
+            {
+                if (diem[i] == max)
+                {
+                    Console.Write(hoTen[i] + "  ");
+                }
+            }
+            Console.WriteLine();
+        }
+
+        // 5. Ham dem so luong sinh vien dat (diem >= 5.0)
+        static int DemSoLuongDat(double[] diem, int n)
+        {
+            int dem = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (diem[i] >= 5.0)
+                {
+                    dem++;
+                }
+            }
+            return dem;
+        }
+
+        static void Main(string[] args)
+        {
+            // 1. Nhap n[cite: 1]
+            int n = NhapSoLuong();
+
+            // Khai bao mang luu ten va diem
+            string[] hoTen = new string[n];
+            double[] diem = new double[n];
+
+            // 2. Nhap thong tin[cite: 1]
+            NhapThongTin(hoTen, diem, n);
+
+            // 6. In danh sach[cite: 2]
+            InDanhSach(hoTen, diem, n);
+
+            // 3. Tinh va in diem trung binh[cite: 1]
+            double dtb = TinhDiemTrungBinh(diem, n);
+            Console.WriteLine("\n--- THONG KE ---");
+            Console.WriteLine("- Diem trung binh: " + dtb);
+
+            // 4. Tim diem cao nhat va sinh vien dat max[cite: 1]
+            TimDiemCaoNhat(hoTen, diem, n);
+
+            // 5. Dem so luong dat[cite: 1]
+            int soLuongDat = DemSoLuongDat(diem, n);
+            Console.WriteLine("- So luong sinh vien dat (diem >= 5): " + soLuongDat);
+
+            Console.WriteLine("\nNhan phim bat ky de thoat...");
+            Console.ReadKey();
+        }
+    }
+}
